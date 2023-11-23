@@ -113,14 +113,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.deepPurple)),
                       onPressed: () {
-                        Navigator.push(
+                        _fetchQuizs().whenComplete(() {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => QuizScreen(
-                                    quizs: quizs
-                                ),
+                              builder: (context) =>
+                                  QuizScreen(
+                                      quizs: quizs
+                                  ),
                             ),
-                        );
+                          );
+                        });
                       },
                     ),
                   ),
