@@ -1,7 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:quiz_app/model/model_quiz.dart';
+import 'package:quiz_app/widget/widget_candidate.dart';
 
 class QuizScreen extends StatefulWidget {
   List<Quiz> quizs;
@@ -67,12 +69,54 @@ class _QuizScreenState extends State<QuizScreen> {
           Container(
             width: width * 0.8,
             padding: EdgeInsets.only(top: width * 0.012),
-            child: Text(
+            child: AutoSizeText(
               quiz.title,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: TextStyle(
+                fontSize: width * 0.048,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          )
+          ),
+          Expanded(
+              child: Container(),
+          ),
+          Column(children: _buildCandidates(width, quiz),),
         ],
       ),
     );
+  }
+
+  List<Widget> _buildCandidates(double width, Quiz quiz) {
+    List<Widget> _children = [];
+    for (int i = 0; i<4; i++) {
+      _children.add(
+        CandWidget(
+          index: i,
+          text: quiz.candidates[i],
+          width: width,
+          answerState: _answerState[i],
+          tap: () {
+            setState(() {
+              for (int j = 0; j <4; j ++) {
+                if (j == i) {
+                  _answerState[j] = true;
+                  _answers[_currentIndex] = j;
+                } else {
+                  _answerState[j] = false;
+                }
+              }
+            });
+          }
+        ),
+      );
+      _children.add(
+        Padding(
+          padding: EdgeInsets.all(width * 0.024),
+        ),
+      );
+    }
+    return _children;
   }
 }
