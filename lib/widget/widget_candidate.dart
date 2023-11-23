@@ -40,7 +40,7 @@ class _CandWidgetState extends State<CandWidget> {
         onTap: () {
           setState(() {
             widget.tap();
-            widget.answerState = !widget.answerState;
+            widget.answerState = widget.answerState;
           });
         },
       ),
