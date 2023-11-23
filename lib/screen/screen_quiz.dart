@@ -110,7 +110,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       _answerState = [false, false, false, false];
                       _currentIndex += 1;
                       _controller.next();
-                    }
+                    };
                   },
                 ),
               ),
@@ -123,16 +123,16 @@ class _QuizScreenState extends State<QuizScreen> {
 
   List<Widget> _buildCandidates(double width, Quiz quiz) {
     List<Widget> _children = [];
-    for (int i = 0; i<4; i++) {
+    for (int i = 0; i < 4; i++) {
       _children.add(
         CandWidget(
           index: i,
-          text: quiz.candidates[i],
+          text: quiz.candidates?[i] ?? '',  // null-aware 연산자 사용
           width: width,
           answerState: _answerState[i],
           tap: () {
             setState(() {
-              for (int j = 0; j <4; j ++) {
+              for (int j = 0; j < 4; j++) {
                 if (j == i) {
                   _answerState[j] = true;
                   _answers[_currentIndex] = j;
@@ -141,7 +141,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 }
               }
             });
-          }
+          },
         ),
       );
       _children.add(
