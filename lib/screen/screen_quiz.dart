@@ -17,6 +17,7 @@ class _QuizScreenState extends State<QuizScreen> {
   List<int> _answers = [-1, -1, -1];
   List<bool> _answerState = [false, false, false, false];
   int _currentIndex = 0;
+  SwiperController _controller = SwiperController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +35,14 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
               width: width * 0.85,
               height: height * 0.5,
-              child: Swiper(physics: NeverScrollableScrollPhysics(),
-              loop: false,
-              itemCount: widget.quizs.length,
-              itemBuilder: (BuildContext context, int index) {
-                return _buildQuizCard(widget.quizs[index], width, height);
-              },
+              child: Swiper(
+                controller: _controller,
+                physics: NeverScrollableScrollPhysics(),
+                loop: false,
+                itemCount: widget.quizs.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _buildQuizCard(widget.quizs[index], width, height);
+                },
               ),
             ),
           ),
@@ -106,6 +109,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     else {
                       _answerState = [false, false, false, false];
                       _currentIndex += 1;
+                      _controller.next();
                     }
                   },
                 ),
