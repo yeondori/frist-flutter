@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:quiz_app/model/model_quiz.dart';
@@ -8,7 +7,6 @@ import 'package:quiz_app/widget/widget_candidate.dart';
 class QuizScreen extends StatefulWidget {
   List<Quiz> quizs;
   QuizScreen({required this.quizs});
-
   @override
   _QuizScreenState createState() => _QuizScreenState();
 }
@@ -25,37 +23,37 @@ class _QuizScreenState extends State<QuizScreen> {
     double width = screenSize.width;
     double height = screenSize.height;
     return SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.deepPurple,
-          body: Center(
-            child: Container (
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.deepPurple),
-              ),
-              width: width * 0.85,
-              height: height * 0.5,
-              child: Swiper(
-                controller: _controller,
-                physics: NeverScrollableScrollPhysics(),
-                loop: false,
-                itemCount: widget.quizs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _buildQuizCard(widget.quizs[index], width, height);
-                },
-              ),
+      child: Scaffold(
+        backgroundColor: Colors.deepPurple,
+        body: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.deepPurple),
+            ),
+            width: width * 0.85,
+            height: height * 0.5,
+            child: Swiper(
+              controller: _controller,
+              physics: NeverScrollableScrollPhysics(),
+              loop: false,
+              itemCount: widget.quizs.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _buildQuizCard(widget.quizs[index], width, height);
+              },
             ),
           ),
-        )
+        ),
+      ),
     );
   }
 
   Widget _buildQuizCard(Quiz quiz, double width, double height) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white),
-      ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white),
+          color: Colors.white),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -83,9 +81,10 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
           ),
           Expanded(
-              child: Container(),
+            child: Container(),
           ),
-          Column(children: _buildCandidates(width, quiz),
+          Column(
+            children: _buildCandidates(width, quiz),
           ),
           Container(
             padding: EdgeInsets.all(width * 0.024),
@@ -97,22 +96,26 @@ class _QuizScreenState extends State<QuizScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ElevatedButton(
-                child: _currentIndex == widget.quizs.length - 1
-                    ? Text('결과보기')
-                    : Text('다음문제'),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.deepPurple,
-                  ),
-                  onPressed: _answers[_currentIndex] == -1 ? null : () {
-                    if (_currentIndex == widget.quizs.length - 1) {}
-                    else {
+                  onPressed: _answers[_currentIndex] == -1
+                      ? null
+                      : () {
+                    if (_currentIndex == widget.quizs.length - 1) {
+                      // '결과보기' 버튼을 눌렀을 때의 동작
+                    } else {
                       _answerState = [false, false, false, false];
                       _currentIndex += 1;
                       _controller.next();
-                    };
+                    }
                   },
-                ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    textStyle: TextStyle(color: Colors.white),
+                  ),
+                  child: _currentIndex == widget.quizs.length - 1
+                      ? Text('결과보기')
+                      : Text('다음문제', style: TextStyle(color: Colors.white)),
+
+                )
               ),
             ),
           )
