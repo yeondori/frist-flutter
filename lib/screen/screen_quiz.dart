@@ -120,7 +120,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     textStyle: TextStyle(color: Colors.white),
                   ),
                   child: _currentIndex == widget.quizs.length - 1
-                      ? Text('결과보기')
+                      ? Text('결과보기', style: TextStyle(color: Colors.white))
                       : Text('다음문제', style: TextStyle(color: Colors.white)),
 
                 )
