@@ -11,17 +11,17 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Quiz> quizs = [
     Quiz.fromMap({
       'title': 'test',
-      'candidate': ['a', 'b', 'c', 'd'],
+      'candidates': ['a', 'b', 'c', 'd'],
       'answer': 0
     }),
     Quiz.fromMap({
       'title': 'test',
-      'candidate': ['a', 'b', 'c', 'd'],
+      'candidates': ['a', 'b', 'c', 'd'],
       'answer': 0
     }),
     Quiz.fromMap({
       'title': 'test',
-      'candidate': ['a', 'b', 'c', 'd'],
+      'candidates': ['a', 'b', 'c', 'd'],
       'answer': 0
     })
   ];
