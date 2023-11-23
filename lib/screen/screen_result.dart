@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../model/model_quiz.dart';
 
-class ResultScreen extends StatefulWidget {
+class ResultScreen extends StatelessWidget {
   List<int> answers;
   List<Quiz> quizs;
   ResultScreen({required this.answers, required this.quizs});
