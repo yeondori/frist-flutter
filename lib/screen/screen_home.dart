@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Quiz> quizs = [];
   bool isLoading = false;
 
@@ -18,7 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isLoading = true;
     });
-    final response = await http.get('url');
+    final Uri url = Uri.parse('https://quiz-yeondori.koyeb.app/quiz/3/');
+    final response = await http.get(url);
     if(response.statusCode == 200) {
       setState(() {
         quizs = parseQuizs(utf8.decode(response.bodyBytes));
@@ -56,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onWillPop: () async => false,
       child:SafeArea(
         child: Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
             title: Text('My Quiz APP'),
             backgroundColor: Colors.deepPurple,
@@ -113,6 +116,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Colors.deepPurple)),
                       onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Row(
+                              children: <Widget>[
+                                CircularProgressIndicator(),
+                                Padding(
+                                  padding: EdgeInsets.only(left: width * 0.036
+                                  ),
+                                ),
+                                Text('로딩 중....'),
+                              ],
+                            ),
+                        ),
+                        );
                         _fetchQuizs().whenComplete(() {
                           Navigator.push(
                             context,
